@@ -1,9 +1,8 @@
 package com.lekai.root.iaddcontacts;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ShareCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,11 +10,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.lekai.root.iaddcontacts.Adapters.ContactAdapter;
-
-import java.util.List;
 
 import static android.support.v7.widget.RecyclerView.LayoutManager;
 
@@ -25,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     ContactAdapter mAdapter;
     LayoutManager mLayoutManager;
     Context mContext;
+    int MY_PERMISSION_REQUEST_WRITE_CONTACTS;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         mContext = getBaseContext();
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new ContactAdapter(this,17);
+        mAdapter = new ContactAdapter(this,20);
         mRecyclerView.setAdapter(mAdapter);
 
     }
@@ -53,8 +50,8 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_share) {
             String mimeType="text/plain";
             String title ="share";
-            String text = "Check out this app that lets you " +
-                    "add contacts in batch";
+            String text = "Check out this app that helps you " +
+                    "save a long list of contacts directly to your phone at once " + "https://goo.gl/dPZLB6";
             ShareCompat.IntentBuilder.from(this)
                     .setType(mimeType)
                     .setChooserTitle(title)
@@ -64,6 +61,9 @@ public class MainActivity extends AppCompatActivity {
         }
         if(id==R.id.action_reset){
             mAdapter.notifyDataSetChanged();
+        }
+        if(id==R.id.action_help){
+            startActivity(new Intent(this,HelpActivity.class));
         }
 
         return super.onOptionsItemSelected(item);

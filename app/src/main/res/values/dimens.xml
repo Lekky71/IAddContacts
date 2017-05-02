@@ -1,5 +1,5 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
-    <dimen name="each_view_height">30dp</dimen>
-    <dimen name="each_text_height">10sp</dimen>
+    <dimen name="each_view_height">40dp</dimen>
+    <dimen name="each_text_height">12sp</dimen>
 </resources>

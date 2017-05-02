@@ -13,6 +13,7 @@
         android:layout_weight="1"
         android:textSize="@dimen/each_text_height"
         android:ems="10"
+        android:paddingTop="5dp"
         android:hint="@string/contact_name"/>
 
     <EditText
@@ -22,13 +23,15 @@
         android:layout_weight="1"
         android:textSize="@dimen/each_text_height"
         android:ems="10"
+        android:paddingTop="5dp"
         android:inputType="phone"
         android:hint="@string/contact_number"/>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="@dimen/each_view_height"
         android:text="ADD"
-        android:textSize="@dimen/each_text_height"
+        android:textColor="#000000"
+        android:textSize="8sp"
         android:id="@+id/contact_add_button"
         app:backgroundTint="?android:attr/colorPrimary"
         tools:targetApi="lollipop" />

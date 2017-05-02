@@ -6,4 +6,6 @@
     <string name="contact_number">contact number</string>
     <string name="reset_list">RESET</string>
     <string name="title_activity_splashscreen">Splashscreen</string>
+    <string name="show_help">HELP</string>
+    <string name="title_activity_help">HelpActivity</string>
 </resources>
