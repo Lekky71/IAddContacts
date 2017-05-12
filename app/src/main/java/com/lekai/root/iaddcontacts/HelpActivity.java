@@ -1,16 +1,18 @@
 package com.lekai.root.iaddcontacts;
 
+import android.app.ActivityManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.widget.TextView;
 
 public class HelpActivity extends AppCompatActivity {
     String text = "This app lets you add a long list of contacts to your phone directly. " +
-            "All you have to do is just type in the names and phone numbers and click the ADD BUTTON on the right. Kindly hit the " +
+            "All you have to do is just type in the names and phone numbers and click the ADD BUTTON on the right. \n " +
+            "Click on the RESET button to clear the inputs \n" +
+            "Kindly hit the " +
             "share button to share this useful app with your friends";
     TextView helpTextView ;
     @Override
@@ -22,6 +24,19 @@ public class HelpActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         helpTextView = (TextView) findViewById(R.id.help_message);
         helpTextView.setText(text);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            ActivityManager.TaskDescription tDesc = null;
+            Bitmap bm = BitmapFactory.decodeResource(getResources(), R.mipmap.iadd_contacts_icon);
+            tDesc = new ActivityManager.TaskDescription("IAddContacts",bm,getResources().getColor(R.color.colorApp));
+            setTaskDescription(tDesc);
+
+        }
+
     }
 
 }

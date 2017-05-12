@@ -1,22 +1,19 @@
 package com.lekai.root.iaddcontacts;
 
-import android.Manifest;
+import android.app.ActivityManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
-
-import static android.app.PendingIntent.getActivity;
 
 public class Splashscreen extends AppCompatActivity {
     private int secs = 3000;
@@ -27,6 +24,7 @@ public class Splashscreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splashscreen);
         begin_work = (Button) findViewById(R.id.start_button);
+        begin_work.setBackgroundColor(0);
         begin_work.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,5 +76,18 @@ public class Splashscreen extends AppCompatActivity {
                 }
                 return;
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            ActivityManager.TaskDescription tDesc = null;
+            Bitmap bm = BitmapFactory.decodeResource(getResources(), R.mipmap.iadd_contacts_icon);
+            tDesc = new ActivityManager.TaskDescription("IAddContacts",bm,getResources().getColor(R.color.colorApp));
+            setTaskDescription(tDesc);
+
+        }
+
     }
 }

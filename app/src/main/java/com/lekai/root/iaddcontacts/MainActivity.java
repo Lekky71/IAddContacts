@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         mContext = getBaseContext();
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new ContactAdapter(this,20);
+        mAdapter = new ContactAdapter(this,10);
         mRecyclerView.setAdapter(mAdapter);
 
     }

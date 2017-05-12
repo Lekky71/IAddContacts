@@ -18,6 +18,8 @@
             android:layout_height="@dimen/each_view_height"
             android:layout_weight="1"
             android:ems="10"
+            android:backgroundTint="#ADD8E6"
+            android:textCursorDrawable="@drawable/shapes"
             android:hint="@string/contact_name"
             android:paddingTop="5dp"
             android:textSize="@dimen/each_text_height" />
@@ -38,6 +40,8 @@
             android:layout_height="@dimen/each_view_height"
             android:layout_weight="1"
             android:ems="10"
+            android:textCursorDrawable="@drawable/shapes"
+            android:backgroundTint="#ADD8E6"
             android:hint="@string/contact_number"
             android:inputType="phone"
             android:paddingTop="5dp"
