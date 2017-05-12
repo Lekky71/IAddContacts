@@ -31,7 +31,7 @@ public class HelpActivity extends AppCompatActivity {
         super.onResume();
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             ActivityManager.TaskDescription tDesc = null;
-            Bitmap bm = BitmapFactory.decodeResource(getResources(), R.mipmap.iadd_contacts_icon);
+            Bitmap bm = BitmapFactory.decodeResource(getResources(), R.mipmap.fineiconphone);
             tDesc = new ActivityManager.TaskDescription("IAddContacts",bm,getResources().getColor(R.color.colorApp));
             setTaskDescription(tDesc);
 
