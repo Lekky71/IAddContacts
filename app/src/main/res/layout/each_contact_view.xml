@@ -4,28 +4,48 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:paddingBottom="10dp">
 
-    <EditText
-        android:id="@+id/contact_name"
-        android:layout_width="70dp"
-        android:layout_height="@dimen/each_view_height"
-        android:layout_weight="1"
-        android:textSize="@dimen/each_text_height"
-        android:ems="10"
-        android:paddingTop="5dp"
-        android:hint="@string/contact_name"/>
+    <android.support.v7.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1" >
 
-    <EditText
-        android:id="@+id/contact_phone"
-        android:layout_width="70dp"
-        android:layout_height="@dimen/each_view_height"
-        android:layout_weight="1"
-        android:textSize="@dimen/each_text_height"
-        android:ems="10"
-        android:paddingTop="5dp"
-        android:inputType="phone"
-        android:hint="@string/contact_number"/>
+        <EditText
+            android:id="@+id/contact_name"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/each_view_height"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="@string/contact_name"
+            android:paddingTop="5dp"
+            android:textSize="@dimen/each_text_height" />
+
+
+    </android.support.v7.widget.CardView>
+    <android.support.v4.widget.Space
+        android:layout_width="10dp"
+        android:layout_height="match_parent" />
+    <android.support.v7.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1" >
+
+        <EditText
+            android:id="@+id/contact_phone"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/each_view_height"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="@string/contact_number"
+            android:inputType="phone"
+            android:paddingTop="5dp"
+            android:textSize="@dimen/each_text_height" />
+
+    </android.support.v7.widget.CardView>
+
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="@dimen/each_view_height"
@@ -33,6 +53,6 @@
         android:textColor="#000000"
         android:textSize="8sp"
         android:id="@+id/contact_add_button"
-        app:backgroundTint="?android:attr/colorPrimary"
+        app:backgroundTint="#ADD8E6"
         tools:targetApi="lollipop" />
 </LinearLayout>

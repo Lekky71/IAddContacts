@@ -1,7 +1,10 @@
 package com.lekai.root.iaddcontacts;
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.ShareCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -67,5 +70,18 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            ActivityManager.TaskDescription tDesc = null;
+            Bitmap bm = BitmapFactory.decodeResource(getResources(), R.mipmap.iadd_contacts_icon);
+            tDesc = new ActivityManager.TaskDescription("IAddContacts",bm,getResources().getColor(R.color.colorApp));
+            setTaskDescription(tDesc);
+
+        }
+
     }
 }
