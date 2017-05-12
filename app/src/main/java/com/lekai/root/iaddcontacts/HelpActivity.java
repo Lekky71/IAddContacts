@@ -10,8 +10,9 @@ import android.widget.TextView;
 
 public class HelpActivity extends AppCompatActivity {
     String text = "This app lets you add a long list of contacts to your phone directly. " +
-            "All you have to do is just type in the names and phone numbers and click the ADD BUTTON on the right. \n " +
-            "Click on the RESET button to clear the inputs \n" +
+            "All you have to do is just type in the names and phone numbers and click the ADD BUTTON on the right. \n \n" +
+            "Click on the RESET button to clear the inputs \n\n" +
+            "To add more input, click on the down arrow button \n\n" +
             "Kindly hit the " +
             "share button to share this useful app with your friends";
     TextView helpTextView ;

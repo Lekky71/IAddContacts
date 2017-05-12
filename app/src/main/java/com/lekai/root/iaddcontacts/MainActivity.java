@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ShareCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,6 +14,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.lekai.root.iaddcontacts.Adapters.ContactAdapter;
 
@@ -20,10 +22,17 @@ import static android.support.v7.widget.RecyclerView.LayoutManager;
 
 public class MainActivity extends AppCompatActivity {
     RecyclerView mRecyclerView;
+    RecyclerView mRecyclerView2;
+    RecyclerView mRecyclerView3;
     Toolbar toolbar ;
     ContactAdapter mAdapter;
     LayoutManager mLayoutManager;
     Context mContext;
+    ContactAdapter adapter2;
+    LayoutManager manager2;
+    ContactAdapter adapter3;
+    LayoutManager manager3;
+    FloatingActionButton fab ;
     int MY_PERMISSION_REQUEST_WRITE_CONTACTS;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,12 +41,24 @@ public class MainActivity extends AppCompatActivity {
         toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         mRecyclerView = (RecyclerView) findViewById(R.id.contact_recycler_view);
+        mRecyclerView2 = (RecyclerView) findViewById(R.id.contact_recycler_view2);
+        mRecyclerView3 = (RecyclerView) findViewById(R.id.contact_recycler_view3);
         mContext = getBaseContext();
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mAdapter = new ContactAdapter(this,10);
+        adapter2 = new ContactAdapter(this,10);
+        manager2 = new LinearLayoutManager(this);
+        adapter3 = new ContactAdapter(this,10);
+        manager3 = new LinearLayoutManager(this);
+        mRecyclerView2.setLayoutManager(manager2);
         mRecyclerView.setAdapter(mAdapter);
-
+        mRecyclerView2.setAdapter(adapter2);
+        mRecyclerView3.setLayoutManager(manager3);
+        mRecyclerView3.setAdapter(adapter3);
+        mRecyclerView2.setVisibility(View.GONE);
+        mRecyclerView3.setVisibility(View.GONE);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
     }
 
     @Override
@@ -64,6 +85,11 @@ public class MainActivity extends AppCompatActivity {
         }
         if(id==R.id.action_reset){
             mAdapter.notifyDataSetChanged();
+            adapter2.notifyDataSetChanged();
+            adapter3.notifyDataSetChanged();
+            mRecyclerView2.setVisibility(View.GONE);
+            mRecyclerView3.setVisibility(View.GONE);
+            fab.setVisibility(View.VISIBLE);
         }
         if(id==R.id.action_help){
             startActivity(new Intent(this,HelpActivity.class));
@@ -83,5 +109,14 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
+    }
+    public void addMoreRecycle(View view){
+        if(mRecyclerView2.getVisibility()==View.GONE){
+            mRecyclerView2.setVisibility(View.VISIBLE);
+        } else {
+            mRecyclerView3.setVisibility(View.VISIBLE);
+            fab.setVisibility(View.GONE);
+
+        }
     }
 }
