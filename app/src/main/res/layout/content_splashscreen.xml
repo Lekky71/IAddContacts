@@ -26,5 +26,5 @@
         android:paddingTop="100dp"
         android:fontFamily="casual"
         android:textStyle="italic|bold"
-        android:text="This app helps you to add a \nlong list of contact at once \n\nDev By\n@Oluwalekae "/>
+        android:text="This app helps you to add a \nlong list of contacts at once \n\nDev By\n@Oluwalekae "/>
 </LinearLayout>
