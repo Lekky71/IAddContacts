@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:orientation="vertical"
+    android:background="@mipmap/white_circle_bac"
     android:layout_height="match_parent"
-    tools:context="com.lekai.root.iaddcontacts.MainActivity"
-    android:background="@mipmap/blueflower">
+    tools:context="com.lekai.root.iaddcontacts.MainActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -18,7 +18,6 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="#00BFFF"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
@@ -40,4 +39,13 @@
         android:layout_alignParentStart="true"
         android:layout_marginBottom="30dp" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ADD ALL"
+        android:background="@color/colorPrimary"
+        android:id="@+id/add_all_button"
+        android:onClick="addAllOfThem"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"/>
 </RelativeLayout>

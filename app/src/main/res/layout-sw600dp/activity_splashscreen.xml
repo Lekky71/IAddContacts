@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@mipmap/white_circ"
     android:layout_height="match_parent"
-    tools:context="com.lekai.root.iaddcontacts.Splashscreen"
-    android:background="@mipmap/blueflower">
+    tools:context="com.lekai.root.iaddcontacts.Splashscreen">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -14,7 +14,7 @@
     </android.support.design.widget.AppBarLayout>
 
     <include layout="@layout/content_splashscreen" />
-    <Button
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="BEGIN"

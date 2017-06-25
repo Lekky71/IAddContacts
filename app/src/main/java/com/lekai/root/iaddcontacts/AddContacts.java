@@ -28,7 +28,7 @@ public class AddContacts {
 
         values.clear();
         values.put(Phone.NUMBER, phone);
-        values.put(Phone.TYPE, Phone.TYPE_OTHER);
+        values.put(Phone.TYPE, Phone.TYPE_MOBILE);
         values.put(Phone.MIMETYPE, Phone.CONTENT_ITEM_TYPE);
         values.put(Data.RAW_CONTACT_ID, rawContactId);
         c.getContentResolver().insert(Data.CONTENT_URI, values);

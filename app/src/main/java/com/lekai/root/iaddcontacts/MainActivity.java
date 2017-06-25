@@ -5,8 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ShareCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,6 +17,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 
 import com.lekai.root.iaddcontacts.Adapters.ContactAdapter;
 
@@ -33,13 +36,14 @@ public class MainActivity extends AppCompatActivity {
     ContactAdapter adapter3;
     LayoutManager manager3;
     FloatingActionButton fab ;
-    int MY_PERMISSION_REQUEST_WRITE_CONTACTS;
+    Button addAllAtOnceButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("IAddContacts");
         mRecyclerView = (RecyclerView) findViewById(R.id.contact_recycler_view);
         mRecyclerView2 = (RecyclerView) findViewById(R.id.contact_recycler_view2);
         mRecyclerView3 = (RecyclerView) findViewById(R.id.contact_recycler_view3);
@@ -59,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView2.setVisibility(View.GONE);
         mRecyclerView3.setVisibility(View.GONE);
         fab = (FloatingActionButton) findViewById(R.id.fab);
+        addAllAtOnceButton = (Button) findViewById(R.id.add_all_button);
     }
 
     @Override
@@ -101,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             ActivityManager.TaskDescription tDesc = null;
             Bitmap bm = BitmapFactory.decodeResource(getResources(), R.mipmap.fineiconphone);
             tDesc = new ActivityManager.TaskDescription("IAddContacts",bm,getResources().getColor(R.color.colorApp));
@@ -118,5 +123,34 @@ public class MainActivity extends AppCompatActivity {
             fab.setVisibility(View.GONE);
 
         }
+    }
+    public void addToPhone(){
+        ContactModel[] firstArray = mAdapter.getAllContacts();
+        ContactModel[] secondArray = adapter2.getAllContacts();
+        ContactModel[] thirdArray = adapter3.getAllContacts();
+        for(ContactModel c : firstArray){
+            if(c != null){
+                AddContacts.contactAdd(this,c.getName(),c.getPhone());
+            }
+        }
+        if(mRecyclerView2.getVisibility() != View.GONE){
+            for(ContactModel c : secondArray){
+                if(c != null){
+                    AddContacts.contactAdd(this,c.getName(),c.getPhone());
+                }
+            }
+            if(mRecyclerView3.getVisibility() != View.GONE){
+                for(ContactModel c : thirdArray){
+                    if(c != null){
+                        AddContacts.contactAdd(this,c.getName(),c.getPhone());
+                    }
+                }
+            }
+        }
+
+    }
+    public void addAllOfThem(View v){
+        addToPhone();
+        Snackbar.make(addAllAtOnceButton, "All Contacts saved", Snackbar.LENGTH_SHORT).show();
     }
 }

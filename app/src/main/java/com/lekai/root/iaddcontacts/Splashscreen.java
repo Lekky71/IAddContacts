@@ -1,52 +1,54 @@
 package com.lekai.root.iaddcontacts;
 
+import android.Manifest;
 import android.app.ActivityManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class Splashscreen extends AppCompatActivity {
     private int secs = 3000;
     final int MY_PERMISSION_REQUEST_WRITE_CONTACTS = 100;
-    Button begin_work;
+    TextView begin_work;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splashscreen);
-        begin_work = (Button) findViewById(R.id.start_button);
+        begin_work = (TextView) findViewById(R.id.start_button);
         begin_work.setBackgroundColor(0);
         begin_work.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startUse();
-                finish();
             }
         });
     }
 
     public void askForContactPermission(Intent in){
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            int permissionCheck = ContextCompat.checkSelfPermission(Splashscreen.this, android.Manifest.permission.WRITE_CONTACTS);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            int permissionCheck = ContextCompat.checkSelfPermission(Splashscreen.this, Manifest.permission.WRITE_CONTACTS);
             if(permissionCheck != PackageManager.PERMISSION_GRANTED){
-                ActivityCompat.requestPermissions(Splashscreen.this,new String[]{android.Manifest.permission.WRITE_CONTACTS},MY_PERMISSION_REQUEST_WRITE_CONTACTS);
+                ActivityCompat.requestPermissions(Splashscreen.this,new String[]{Manifest.permission.WRITE_CONTACTS},MY_PERMISSION_REQUEST_WRITE_CONTACTS);
 
 //                if(ActivityCompat.shouldShowRequestPermissionRationale(Splashscreen.this, android.Manifest.permission.WRITE_CONTACTS));
             }else{
                 startActivity(in);
+                finish();
             }
         }
         else{
             startActivity(in);
+            finish();
         }
     }
 
@@ -63,16 +65,14 @@ public class Splashscreen extends AppCompatActivity {
         switch (requestCode){
             case MY_PERMISSION_REQUEST_WRITE_CONTACTS:
                 if(grantResults.length>0 && grantResults[0]==PackageManager.PERMISSION_GRANTED){
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            Intent intent = new Intent(Splashscreen.this,MainActivity.class);
-                            startActivity(intent);
-                            finish();
-                        }
-                    },secs);
+                    Intent intent = new Intent(Splashscreen.this,MainActivity.class);
+                    startActivity(intent);
+                    finish();
                 }
                 else {
+                    Toast.makeText(getBaseContext(),"Sorry, This app cannot work on your device",Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(this,MainActivity.class));
+                    finish();
                 }
                 return;
         }

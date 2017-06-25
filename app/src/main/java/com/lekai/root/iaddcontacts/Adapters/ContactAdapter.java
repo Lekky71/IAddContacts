@@ -2,16 +2,15 @@ package com.lekai.root.iaddcontacts.Adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
-import com.lekai.root.iaddcontacts.AddContacts;
+
 import com.lekai.root.iaddcontacts.ContactModel;
 import com.lekai.root.iaddcontacts.R;
-import java.util.ArrayList;
 
 /**
  * Created by root on 4/21/17.
@@ -19,9 +18,8 @@ import java.util.ArrayList;
 
 public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactViewHolder>{
     private Context mContext;
-    public ContactModel contact;
     int mCount ;
-    ArrayList<ContactModel> allContacts;
+    ContactModel[] contacts;
     String name;
     String phone;
     public ContactAdapter(Context context, int count){
@@ -37,23 +35,22 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
 
     @Override
     public void onBindViewHolder(final ContactAdapter.ContactViewHolder holder, final int position) {
-        allContacts = new ArrayList<ContactModel>();
-        holder.addButton.setOnClickListener(new View.OnClickListener() {
+        contacts = new ContactModel[10];
+        holder.contactPhone.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View v) {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
                 name = holder.getName();
                 phone = holder.getPhone();
-
                 if(name.length()!=0 && phone.length() !=0) {
-                    //This adds the details to the contact
-                    AddContacts.contactAdd(mContext,name,phone);
-                    Toast.makeText(mContext, "Contact saved", Toast.LENGTH_SHORT).show();
-                }else if(name.length()==0){
-                    holder.contactName.setError("name cannot be empty");
-                }if(phone.length()==0){
-                    holder.contactPhone.setError("enter a valid number");
+                    ContactModel contactModel = new ContactModel(name, phone);
+                    contacts[position] = contactModel;
                 }
             }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
         });
     }
     @Override
@@ -63,12 +60,10 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
     public class ContactViewHolder extends RecyclerView.ViewHolder {
         EditText contactName;
         EditText contactPhone;
-        Button addButton;
         public ContactViewHolder(View itemView) {
             super(itemView);
             contactName = (EditText) itemView.findViewById(R.id.contact_name);
             contactPhone = (EditText) itemView.findViewById(R.id.contact_phone);
-            addButton = (Button) itemView.findViewById(R.id.contact_add_button);
         }
         public String getName(){
             return contactName.getText().toString();
@@ -76,5 +71,9 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
         public String getPhone(){
             return contactPhone.getText().toString();
         }
+    }
+
+    public ContactModel[] getAllContacts(){
+        return contacts;
     }
 }

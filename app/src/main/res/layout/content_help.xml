@@ -16,8 +16,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/help_message"
-        android:textSize="30sp"
-        android:fontFamily="monospace"
+        android:textSize="20sp"
+        android:textColor="@color/cardview_dark_background"
+        android:textStyle="normal"
+        tools:text="This is a test of font and how things will look like on here"
+        android:fontFamily="serif"
         />
     </ScrollView>
 

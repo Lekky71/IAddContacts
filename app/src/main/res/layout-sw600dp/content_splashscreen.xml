@@ -14,6 +14,7 @@
         android:layout_height="wrap_content"
         android:text="IAdd \nContacts"
         android:textSize="100sp"
+        android:textColor="@color/cardview_dark_background"
         android:layout_gravity="center_horizontal"
         android:paddingTop="20dp"
         android:fontFamily="casual"
@@ -21,12 +22,13 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
+        android:layout_width="479dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:fontFamily="casual"
+        android:fontFamily="sans-serif-condensed"
         android:paddingTop="100dp"
+        android:textColor="@color/cardview_dark_background"
         android:text="This app helps you to add a \n\nlong list of contacts at once \n\n\n\n\nDev By\n\n@Oluwalekae "
-        android:textSize="20sp"
+        android:textSize="30sp"
         android:textStyle="italic|bold" />
 </LinearLayout>
