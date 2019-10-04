@@ -7,7 +7,7 @@
     android:orientation="horizontal"
     android:paddingBottom="10dp">
 
-    <android.support.v7.widget.CardView
+    <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_weight="1" >
@@ -25,11 +25,11 @@
             android:textSize="@dimen/each_text_height" />
 
 
-    </android.support.v7.widget.CardView>
-    <android.support.v4.widget.Space
+    </androidx.cardview.widget.CardView>
+    <androidx.legacy.widget.Space
         android:layout_width="10dp"
         android:layout_height="match_parent" />
-    <android.support.v7.widget.CardView
+    <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_weight="1" >
@@ -47,7 +47,7 @@
             android:paddingTop="5dp"
             android:textSize="@dimen/each_text_height" />
 
-    </android.support.v7.widget.CardView>
+    </androidx.cardview.widget.CardView>
 
 
 </LinearLayout>
