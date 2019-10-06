@@ -16,7 +16,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.lekai.root.iaddcontacts.R
 import com.lekai.root.iaddcontacts.models.ContactModel
-import com.lekai.root.iaddcontacts.ui.adapter.ContactAdapterV2
+import com.lekai.root.iaddcontacts.ui.adapter.ContactAdapter
 import com.lekai.root.iaddcontacts.ui.viewModels.ContactViewModel
 import com.lekai.root.iaddcontacts.ui.viewModels.ContactViewModelFactory
 import kotlinx.android.synthetic.main.activity_main.*
@@ -30,10 +30,10 @@ class MainActivity : AppCompatActivity(), KodeinAware {
     override val kodein: Kodein by closestKodein()
     private lateinit var contactViewModel: ContactViewModel
     private val contactViewModelFactory: ContactViewModelFactory by instance()
-    lateinit var mAdapter: ContactAdapterV2
-    lateinit var adapter2: ContactAdapterV2
+    private lateinit var mAdapter: ContactAdapter
+    lateinit var adapter2: ContactAdapter
     lateinit var manager2: LayoutManager
-    lateinit var adapter3: ContactAdapterV2
+    lateinit var adapter3: ContactAdapter
     lateinit var manager3: LayoutManager
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,10 +41,10 @@ class MainActivity : AppCompatActivity(), KodeinAware {
         setSupportActionBar(toolbar)
         supportActionBar!!.title = "IAddContacts"
         contact_recycler_view.layoutManager = LinearLayoutManager(this)
-        mAdapter = ContactAdapterV2(this, 10)
-        adapter2 = ContactAdapterV2(this, 10)
+        mAdapter = ContactAdapter(this, 10)
+        adapter2 = ContactAdapter(this, 10)
         manager2 = LinearLayoutManager(this)
-        adapter3 = ContactAdapterV2(this, 10)
+        adapter3 = ContactAdapter(this, 10)
         manager3 = LinearLayoutManager(this)
         contact_recycler_view2.layoutManager = manager2
         contact_recycler_view.adapter = mAdapter

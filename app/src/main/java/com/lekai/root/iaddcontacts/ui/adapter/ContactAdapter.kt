@@ -12,8 +12,8 @@ import com.lekai.root.iaddcontacts.R
 import com.lekai.root.iaddcontacts.models.ContactModel
 import kotlinx.android.synthetic.main.each_contact_view.view.*
 
-class ContactAdapterV2(private val context: Context,private val mCount : Int) :
-        RecyclerView.Adapter<ContactAdapterV2.ContactViewHolder>() {
+class ContactAdapter(private val context: Context, private val mCount : Int) :
+        RecyclerView.Adapter<ContactAdapter.ContactViewHolder>() {
     var allContacts : Array<ContactModel?>? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactViewHolder  =
             ContactViewHolder(LayoutInflater.from(context).inflate(R.layout.each_contact_view, parent, false))
