@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.lekai.root.iaddcontacts.MainActivity"
+    tools:context="com.lekai.root.iaddcontacts.ui.MainActivity"
     tools:showIn="@layout/activity_main"
     android:orientation="vertical"
     android:layout_marginTop="70dp"

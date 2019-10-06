@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:background="@mipmap/white_circle_bac"
     android:layout_height="match_parent"
-    tools:context="com.lekai.root.iaddcontacts.MainActivity">
+    tools:context="com.lekai.root.iaddcontacts.ui.MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
