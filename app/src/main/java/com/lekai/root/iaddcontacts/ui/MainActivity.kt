@@ -81,6 +81,7 @@ class MainActivity : AppCompatActivity(), KodeinAware {
             adapter3.notifyDataSetChanged()
             contact_recycler_view2.visibility = View.GONE
             contact_recycler_view3.visibility = View.GONE
+            fab.visibility = View.VISIBLE
 
         }
         if (id == R.id.action_help) {
@@ -107,7 +108,7 @@ class MainActivity : AppCompatActivity(), KodeinAware {
             contact_recycler_view2.visibility = View.VISIBLE
         } else {
             contact_recycler_view3.visibility = View.VISIBLE
-            fab.visibility = View.VISIBLE
+            fab.visibility = View.INVISIBLE
 
         }
     }
