@@ -104,7 +104,7 @@ class MainActivity : AppCompatActivity(), KodeinAware {
 
     fun addMoreRecycle(view: View) {
         if (contact_recycler_view2.visibility == View.GONE) {
-            contact_recycler_view3.visibility = View.VISIBLE
+            contact_recycler_view2.visibility = View.VISIBLE
         } else {
             contact_recycler_view3.visibility = View.VISIBLE
             fab.visibility = View.VISIBLE
