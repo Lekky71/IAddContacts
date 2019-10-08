@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.lekai.root.iaddcontacts.HelpActivity"
+    tools:context="com.lekai.root.iaddcontacts.ui.HelpActivity"
     tools:showIn="@layout/activity_help">
     <ScrollView
         android:layout_width="match_parent"
