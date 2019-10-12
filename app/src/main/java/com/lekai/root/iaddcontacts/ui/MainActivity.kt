@@ -1,19 +1,22 @@
 package com.lekai.root.iaddcontacts.ui
 
+import android.annotation.SuppressLint
 import android.app.ActivityManager
 import android.content.Intent
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
-import androidx.core.app.ShareCompat
-import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ShareCompat
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView.LayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.lekai.root.iaddcontacts.R
 import com.lekai.root.iaddcontacts.models.ContactModel
 import com.lekai.root.iaddcontacts.ui.adapter.ContactAdapter
@@ -25,8 +28,13 @@ import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.closestKodein
 import org.kodein.di.generic.instance
+import java.io.BufferedReader
+import java.io.IOException
+import java.io.InputStreamReader
 
 class MainActivity : AppCompatActivity(), KodeinAware {
+    private val PICK_FILE: Int = 101
+    private val TAG = "Contacts"
     override val kodein: Kodein by closestKodein()
     private lateinit var contactViewModel: ContactViewModel
     private val contactViewModelFactory: ContactViewModelFactory by instance()
@@ -61,6 +69,7 @@ class MainActivity : AppCompatActivity(), KodeinAware {
         return true
     }
 
+    @SuppressLint("RestrictedApi")
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
         if (id == R.id.action_share) {
@@ -87,8 +96,46 @@ class MainActivity : AppCompatActivity(), KodeinAware {
         if (id == R.id.action_help) {
             startActivity(Intent(this, HelpActivity::class.java))
         }
+        if (id == R.id.import_contacts) {
+            showFilePicker()
+        }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    @Throws(IOException::class)
+    private fun readCSV(uri: Uri): List<String> {
+        val csvFile = contentResolver.openInputStream(uri)
+        val isr = InputStreamReader(csvFile)
+        return BufferedReader(isr).readLines()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, intent: Intent?) {
+        super.onActivityResult(requestCode, resultCode, intent)
+
+        var contacts = mutableListOf<ContactModel>()
+        if (requestCode == PICK_FILE && intent != null && resultCode == RESULT_OK) {
+            val csvResult = intent.data?.let { readCSV(it) }
+            csvResult?.forEach { row ->
+                val contact = row.split(",")
+                try {
+                    contacts.add(ContactModel(contact[0], contact[1]))
+                } catch (e: Exception) {
+                    Log.e(TAG, e.localizedMessage)
+                }
+            }
+            addContacts(contacts)
+            contacts = emptyArray<ContactModel>().toMutableList()
+        }
+    }
+
+
+    private fun showFilePicker() {
+        var intent = Intent(Intent.ACTION_GET_CONTENT)
+        intent.type = "text/*"
+        intent.addCategory(Intent.CATEGORY_OPENABLE)
+        intent = Intent.createChooser(intent, "Select a file")
+        startActivityForResult(intent, PICK_FILE)
     }
 
     override fun onResume() {

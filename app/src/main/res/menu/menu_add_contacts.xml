@@ -11,6 +11,12 @@
         android:title="@string/show_help"
         app:showAsAction="always"/>
     <item
+        android:id="@+id/import_contacts"
+        android:orderInCategory="100"
+        android:title="+@string/import_csv"
+        app:showAsAction="always"
+        android:icon="@android:drawable/ic_input_get"/>
+    <item
         android:id="@+id/action_share"
         android:orderInCategory="100"
         android:title="@string/share_this_app"
