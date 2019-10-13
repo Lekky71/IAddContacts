@@ -49,6 +49,9 @@ dependencies {
     // Kodein
     implementation "org.kodein.di:kodein-di-generic-jvm:6.3.3"
     implementation "org.kodein.di:kodein-di-framework-android-x:6.3.3"
+
+    implementation 'com.github.clans:fab:1.6.4'
+    implementation 'com.opencsv:opencsv:4.6'
 }
 repositories {
     mavenCentral()
