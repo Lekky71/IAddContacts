@@ -3,28 +3,45 @@ package com.lekai.root.iaddcontacts.ui
 import android.app.ActivityManager
 import android.content.Intent
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
-import androidx.core.app.ShareCompat
-import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
+import android.os.Environment
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ShareCompat
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.viewModelScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView.LayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.lekai.root.iaddcontacts.R
 import com.lekai.root.iaddcontacts.models.ContactModel
 import com.lekai.root.iaddcontacts.ui.adapter.ContactAdapter
 import com.lekai.root.iaddcontacts.ui.viewModels.ContactViewModel
 import com.lekai.root.iaddcontacts.ui.viewModels.ContactViewModelFactory
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.content_main.*
+import com.lekai.root.iaddcontacts.util.CsvUtils
+import com.opencsv.CSVReader
+import com.opencsv.exceptions.CsvMalformedLineException
+import kotlinx.android.synthetic.main.activity_main.addContactsButton
+import kotlinx.android.synthetic.main.activity_main.fab
+import kotlinx.android.synthetic.main.activity_main.importContactsButton
+import kotlinx.android.synthetic.main.activity_main.toolbar
+import kotlinx.android.synthetic.main.content_main.contact_recycler_view
+import kotlinx.android.synthetic.main.content_main.contact_recycler_view2
+import kotlinx.android.synthetic.main.content_main.contact_recycler_view3
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.closestKodein
 import org.kodein.di.generic.instance
+import java.io.FileReader
+import java.lang.Exception
+
 
 class MainActivity : AppCompatActivity(), KodeinAware {
     override val kodein: Kodein by closestKodein()
@@ -53,6 +70,8 @@ class MainActivity : AppCompatActivity(), KodeinAware {
         contact_recycler_view3.adapter = adapter3
         contactViewModel = ViewModelProviders.of(this,
                 contactViewModelFactory).get(ContactViewModel::class.java)
+
+        contactViewModel.contactsObservable.observe(this, Observer { addContacts(it) })
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -127,13 +146,40 @@ class MainActivity : AppCompatActivity(), KodeinAware {
 
     private fun addContacts(firstArray: List<ContactModel?>?) {
         for (contact in firstArray!!) {
-            if (contact != null)
-                contactViewModel.addContacts(contact)
+            if (contact != null) contactViewModel.addContacts(contact)
+        }
+        Snackbar.make(addContactsButton, "All Contacts saved", Snackbar.LENGTH_SHORT).show()
+    }
+
+    private fun openFileChooser() {
+        val uri = Uri.parse(Environment.getExternalStorageDirectory().path)
+        val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
+            setDataAndType(uri, "text/*")
+            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        }
+        startActivityForResult(Intent.createChooser(intent, "Open folder"), REQUEST_CSV_CODE)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_CSV_CODE) {
+            val uri: Uri? = data?.data
+            if (uri != null) {
+                contactViewModel.importContacts(uri) {
+                    Snackbar.make(importContactsButton, "Error to read your CSV file.", Snackbar.LENGTH_INDEFINITE)
+                            .setAction("Ok") { }
+                            .show()
+                }
+            }
         }
     }
 
-    fun addAllOfThem(v: View) {
-        addToPhone()
-        Snackbar.make(add_all_button, "All Contacts saved", Snackbar.LENGTH_SHORT).show()
+    fun addAllOfThem(v: View) = addToPhone()
+
+    fun importContactsFromCsv(v: View) = openFileChooser()
+
+    companion object {
+        const val REQUEST_CSV_CODE = 100
     }
+
 }
