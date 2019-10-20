@@ -1,0 +1,74 @@
+*** Here is the sample Code for customers , It read customers information from CSV file. You can customize it acccording to your needs***
+
+
+
+// Model Class 
+
+class Customer {
+  var id: String? = null
+  var name: String? = null
+  var address: String? = null
+  var age: Int = 0
+ 
+  constructor() {}
+  constructor(id: String?, name: String?, address: String?, age: Int) {
+    this.id = id
+    this.name = name
+    this.address = address
+    this.age = age
+  }
+ 
+  override fun toString(): String {
+    return "Customer [id=" + id + ", name=" + name + ", address=" + address + ", age=" + age + "]"
+  }
+}
+
+
+/// Read Data from CSV File
+
+
+
+fun main(args: Array<String>?) {
+  var fileReader: BufferedReader? = null
+ 
+  try {
+    val customers = ArrayList<Customer>()
+    var line: String?
+ 
+    fileReader = BufferedReader(FileReader("customer.csv"))
+ 
+    // Read CSV header
+    fileReader.readLine()
+ 
+    // Read the file line by line starting from the second line
+    line = fileReader.readLine()
+    while (line != null) {
+      val tokens = line.split(",")
+      if (tokens.size > 0) {
+        val customer = Customer(
+            tokens[CUSTOMER_ID_IDX],
+            tokens[CUSTOMER_NAME_IDX],
+            tokens[CUSTOMER_ADDRESS_IDX],
+            Integer.parseInt(tokens[CUSTOMER_AGE]))
+        customers.add(customer)
+      }
+      
+      line = fileReader.readLine()
+    }
+    
+    // Print the new customer list
+    for (customer in customers) {
+      println(customer)
+    }
+  } catch (e: Exception) {
+    println("Reading CSV Error!")
+    e.printStackTrace()
+  } finally {
+    try {
+      fileReader!!.close()
+    } catch (e: IOException) {
+      println("Closing fileReader Error!")
+      e.printStackTrace()
+    }
+  }
+}
