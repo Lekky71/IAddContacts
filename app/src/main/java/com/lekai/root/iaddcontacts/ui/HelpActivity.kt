@@ -3,32 +3,25 @@ package com.lekai.root.iaddcontacts.ui
 import android.app.ActivityManager
 import android.graphics.BitmapFactory
 import android.os.Bundle
-import androidx.core.app.NavUtils
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import android.view.MenuItem
-import android.view.View
-import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NavUtils
+import androidx.databinding.DataBindingUtil
 import com.lekai.root.iaddcontacts.R
+import com.lekai.root.iaddcontacts.databinding.ActivityHelpBinding
 
 class HelpActivity : AppCompatActivity() {
-    internal var text = "This app lets you add a long list of contacts to your phoneEditText directly. " +
-            "All you have to do is just type in the names and phoneEditText numbers and click the ADD ALL BUTTON. \n \n" +
-            "Click on the RESET button to clear the inputs \n\n" +
-            "To add more input, click on the down arrow button \n\n " +
-            "Kindly hit the " +
-            "share button to share this useful app with your friends"
-    lateinit var helpTextView: TextView
+    private lateinit var binding: ActivityHelpBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_help)
-        val toolbar = findViewById<View>(R.id.toolbar) as Toolbar
-        toolbar.title = "Welcome to IAddContacts"
-        setSupportActionBar(toolbar)
+
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_help)
+
+        setSupportActionBar(binding.toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        supportActionBar!!.setTitle("Help")
-        helpTextView = findViewById(R.id.help_message)
-        helpTextView.text = text
+        supportActionBar!!.title = getString(R.string.help_screen_title)
+        binding.included.helpMessage.text = getString(R.string.help_text)
     }
 
     override fun onResume() {
