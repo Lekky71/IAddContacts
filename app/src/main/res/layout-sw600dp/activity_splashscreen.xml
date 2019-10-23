@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@mipmap/white_circ"
     android:layout_height="match_parent"
+    android:background="@mipmap/white_circ"
     tools:context="com.lekai.root.iaddcontacts.ui.Splashscreen">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
-    </com.google.android.material.appbar.AppBarLayout>
+        android:theme="@style/AppTheme.AppBarOverlay"/>
 
-    <include layout="@layout/content_splashscreen" />
+    <include
+        android:id="@+id/included"
+        layout="@layout/content_splashscreen" />
+
     <TextView
+        android:id="@+id/start_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="BEGIN"
-        android:textSize="30sp"
+        android:layout_gravity="bottom|center"
         android:layout_marginBottom="60dp"
-        android:id="@+id/start_button"
+        android:text="BEGIN"
         android:textColor="#000000"
-        android:layout_gravity="bottom|center" />
+        android:textSize="30sp" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

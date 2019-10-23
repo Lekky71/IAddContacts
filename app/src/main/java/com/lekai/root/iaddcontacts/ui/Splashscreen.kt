@@ -6,24 +6,45 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.view.View
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.appcompat.app.AppCompatActivity
-import android.view.View
-import android.widget.TextView
-import android.widget.Toast
+import androidx.databinding.DataBindingUtil
 import com.lekai.root.iaddcontacts.R
+import com.lekai.root.iaddcontacts.databinding.ActivitySplashscreenBinding
+import com.lekai.root.iaddcontacts.ui.handlers.SplashscreenHandler
 
 class Splashscreen : AppCompatActivity() {
-    private val secs = 3000
-    private val MY_PERMISSION_REQUEST_WRITE_CONTACTS = 100
-   lateinit var begin_work: TextView
+
+    companion object {
+        const val MY_PERMISSION_REQUEST_WRITE_CONTACTS = 100
+    }
+
+    private lateinit var binding: ActivitySplashscreenBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_splashscreen)
-        begin_work = findViewById<View>(R.id.start_button) as TextView
-        begin_work.setBackgroundColor(0)
-        begin_work.setOnClickListener { startUse() }
+
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_splashscreen)
+
+        setupViews()
+        setupListeners()
+    }
+
+    private fun setupViews() {
+
+        binding.startButton.setBackgroundColor(0)
+    }
+
+    private fun setupListeners() {
+
+        binding.handler = object : SplashscreenHandler {
+            override fun onStartButtonClick(v: View) {
+                startUse()
+            }
+        }
     }
 
     private fun askForContactPermission(`in`: Intent) {
