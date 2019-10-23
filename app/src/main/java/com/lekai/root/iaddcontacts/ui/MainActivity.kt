@@ -5,16 +5,17 @@ import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
-import androidx.core.app.ShareCompat
-import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ShareCompat
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.RecyclerView.LayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.lekai.root.iaddcontacts.R
+import com.lekai.root.iaddcontacts.databinding.ActivityMainBinding
 import com.lekai.root.iaddcontacts.models.ContactModel
 import com.lekai.root.iaddcontacts.ui.adapter.ContactAdapter
 import com.lekai.root.iaddcontacts.ui.viewModels.ContactViewModel
@@ -29,30 +30,43 @@ import org.kodein.di.generic.instance
 class MainActivity : AppCompatActivity(), KodeinAware {
     override val kodein: Kodein by closestKodein()
     private lateinit var contactViewModel: ContactViewModel
+    private lateinit var binding: ActivityMainBinding
+
     private val contactViewModelFactory: ContactViewModelFactory by instance()
-    private lateinit var mAdapter: ContactAdapter
-    lateinit var adapter2: ContactAdapter
-    lateinit var manager2: LayoutManager
-    lateinit var adapter3: ContactAdapter
-    lateinit var manager3: LayoutManager
+
+    private lateinit var adapter: ContactAdapter
+    private lateinit var adapter2: ContactAdapter
+    private lateinit var adapter3: ContactAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        setSupportActionBar(toolbar)
-        supportActionBar!!.title = "IAddContacts"
-        contact_recycler_view.layoutManager = LinearLayoutManager(this)
-        mAdapter = ContactAdapter(this, 10)
-        adapter2 = ContactAdapter(this, 10)
-        manager2 = LinearLayoutManager(this)
-        adapter3 = ContactAdapter(this, 10)
-        manager3 = LinearLayoutManager(this)
-        contact_recycler_view2.layoutManager = manager2
-        contact_recycler_view.adapter = mAdapter
-        contact_recycler_view2.adapter = adapter2
-        contact_recycler_view3.layoutManager = manager3
-        contact_recycler_view3.adapter = adapter3
+
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        setSupportActionBar(binding.toolbar)
+
         contactViewModel = ViewModelProviders.of(this,
                 contactViewModelFactory).get(ContactViewModel::class.java)
+
+        setupViews()
+    }
+
+    private fun setupViews() {
+        supportActionBar!!.title = getString(R.string.app_name)
+
+        //contactRecyclerView
+        binding.included.contactRecyclerView.layoutManager = LinearLayoutManager(this)
+        adapter = ContactAdapter(this, 10)
+        binding.included.contactRecyclerView.adapter = adapter
+
+        //contactRecyclerView2
+        binding.included.contactRecyclerView2.layoutManager = LinearLayoutManager(this)
+        adapter2 = ContactAdapter(this, 10)
+        binding.included.contactRecyclerView2.adapter = adapter2
+
+        //contactRecyclerView3
+        binding.included.contactRecyclerView3.layoutManager = LinearLayoutManager(this)
+        adapter3 = ContactAdapter(this, 10)
+        binding.included.contactRecyclerView3.adapter = adapter3
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -76,12 +90,12 @@ class MainActivity : AppCompatActivity(), KodeinAware {
             return true
         }
         if (id == R.id.action_reset) {
-            mAdapter.notifyDataSetChanged()
+            adapter.notifyDataSetChanged()
             adapter2.notifyDataSetChanged()
             adapter3.notifyDataSetChanged()
             contact_recycler_view2.visibility = View.GONE
             contact_recycler_view3.visibility = View.GONE
-            fab.visibility = View.VISIBLE
+            binding.fab.visibility = View.VISIBLE
 
         }
         if (id == R.id.action_help) {
@@ -108,19 +122,19 @@ class MainActivity : AppCompatActivity(), KodeinAware {
             contact_recycler_view2.visibility = View.VISIBLE
         } else {
             contact_recycler_view3.visibility = View.VISIBLE
-            fab.visibility = View.INVISIBLE
+            binding.fab.visibility = View.INVISIBLE
 
         }
     }
 
     private fun addToPhone() {
-        val firstArray = mAdapter.allContacts?.toList()
+        val firstArray = adapter.allContacts?.toList()
         val secondArray = adapter2.allContacts?.toList()
         val thirdArray = adapter3.allContacts?.toList()
         addContacts(firstArray)
-        if (contact_recycler_view2.visibility != View.GONE)
+        if (binding.included.contactRecyclerView2.visibility != View.GONE)
             addContacts(secondArray!!)
-        if (contact_recycler_view3.visibility != View.GONE)
+        if (binding.included.contactRecyclerView3.visibility != View.GONE)
             addContacts(thirdArray!!)
 
     }
