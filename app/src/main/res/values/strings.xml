@@ -10,4 +10,6 @@
     <string name="title_activity_help">HelpActivity</string>
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
+    <string name="help_text">This app lets you add a long list of contacts to your phoneEditText directly. All you have to do is just type in the names and phoneEditText numbers and click the ADD ALL BUTTON. \n \n Click on the RESET button to clear the inputs\n\nTo add more input, click on the down arrow button \n\n Kindly hit the share button to share this useful app with your friends</string>
+    <string name="help_screen_title">Help</string>
 </resources>
